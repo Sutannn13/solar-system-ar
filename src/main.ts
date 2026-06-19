@@ -148,7 +148,7 @@ let planetPreviewRenderToken = 0;
 const MIN_VIEWPORT_HEIGHT = 320;
 const MAX_TOUCH_VIEWPORT_HEIGHT = 1400;
 const MAX_TOUCH_VIEWPORT_ASPECT = 2.35;
-const SOLAR_OVERVIEW_TARGET_SIZE = 2.0;
+const SOLAR_OVERVIEW_TARGET_SIZE = 2.3;
 const MOBILE_CLOSE_RELOAD_DELAY_MS = 180;
 const SOLAR_MODEL_VERTICAL_OFFSET = 0.05;
 const SOLAR_MODEL_CLUTTER_NAME_PARTS = ["asteroid", "asteroidi", "ceres", "pluto", "moon"];
@@ -210,16 +210,16 @@ function getSolarOverviewTargetSize(): number {
 
   const viewportWidth = window.visualViewport?.width ?? window.innerWidth ?? 0;
   if (viewportWidth <= 360) {
-    return 1.3;
-  }
-  if (viewportWidth <= 420) {
     return 1.5;
   }
+  if (viewportWidth <= 420) {
+    return 1.7;
+  }
   if (viewportWidth <= 520) {
-    return 1.65;
+    return 1.85;
   }
   if (viewportWidth <= 768) {
-    return 1.8;
+    return 2.0;
   }
   return SOLAR_OVERVIEW_TARGET_SIZE;
 }
@@ -1889,23 +1889,7 @@ function bindSolarModelFallback(): void {
 
     tuneSolarSystemModelScale();
 
-    const maybeWindow = window as Window & { THREE?: any };
-    if (solarSystemEl && maybeWindow.THREE) {
-      const glbWrapperEl = solarSystemEl.querySelector<HTMLElement>("#glbWrapper");
-      if (glbWrapperEl) {
-        const glbObj = (glbWrapperEl as any).object3D;
-        if (glbObj && glbObj.parent) {
-          glbObj.updateMatrixWorld(true);
-          const box = new maybeWindow.THREE.Box3().setFromObject(glbObj);
-          const center = box.getCenter(new maybeWindow.THREE.Vector3());
-          glbObj.parent.worldToLocal(center);
-          
-          glbObj.position.x -= center.x;
-          glbObj.position.y -= center.y;
-          glbObj.position.z -= center.z;
-        }
-      }
-
+    if (solarSystemEl) {
       const didFit = fitModelToMarkerSize(solarSystemEl, getSolarOverviewTargetSize(), {
         center: true,
         centerY: true,

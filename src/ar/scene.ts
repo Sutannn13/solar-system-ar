@@ -5,7 +5,7 @@ type FacingMode = "environment" | "user";
 const SOLAR_SYSTEM_MODEL_SCALE = 0.0012;
 const SOLAR_FALLBACK_SCALE = 0.72;
 const SOLAR_PRESENTATION_Y_POSITION = 0.02;
-const SOLAR_PRESENTATION_TILT_DEG = -15;
+const SOLAR_PRESENTATION_TILT_DEG = 0;
 const SOLAR_PRESENTATION_YAW_DEG = 0;
 const SOLAR_PRESENTATION_ROTATION = `${SOLAR_PRESENTATION_TILT_DEG} ${SOLAR_PRESENTATION_YAW_DEG} 0`;
 const AR_CAMERA_SOURCE_WIDTH = 640;
@@ -86,19 +86,14 @@ export function createArSceneMarkup(
         <a-entity
           id="solarSystem"
           class="interactable-planet"
+          gltf-model="#solarSystemModel"
+          animation-mixer="clip: *; loop: repeat; timeScale: 0.5"
           continuous-sun-spin
           visible="false"
           position="0 0 0"
-          rotation="0 0 0"
+          rotation="-90 0 0"
           scale="${solarScaleValue}"
-        >
-          <a-entity
-            id="glbWrapper"
-            gltf-model="#solarSystemModel"
-            animation-mixer="clip: *; loop: repeat; timeScale: 0.5"
-            rotation="-90 0 0"
-          ></a-entity>
-        </a-entity>
+        ></a-entity>
 
         <a-entity id="solarFallback" visible="true" position="0 0 0" scale="${fallbackScaleValue}">
           <a-sphere color="#ffbe73" radius="0.08" position="0 0.12 0"></a-sphere>
