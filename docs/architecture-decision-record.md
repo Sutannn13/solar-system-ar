@@ -36,3 +36,4 @@ AR.js kadang meninggalkan elemen video/canvas dan kelas fullscreen setelah close
 - Detail planet tetap memakai asset 3D individual.
 - Kalibrasi hit zone tetap dikendalikan dari `src/data/planets.ts`.
 - Verifikasi visual wajib di perangkat nyata (Android Chrome, iOS Safari, tablet).
+- Root cause bug orientasi portrait adalah drift konstanta `SOLAR_PRESENTATION_TILT_DEG` / `SOLAR_PRESENTATION_YAW_DEG` di `src/ar/scene.ts` dari baseline ADR ini; pencegahannya adalah menjaga source constants tetap sinkron dengan ADR dan `docs/DESIGN.md`.

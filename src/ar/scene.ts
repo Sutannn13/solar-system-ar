@@ -5,8 +5,9 @@ type FacingMode = "environment" | "user";
 const SOLAR_SYSTEM_MODEL_SCALE = 0.0012;
 const SOLAR_FALLBACK_SCALE = 0.72;
 const SOLAR_PRESENTATION_Y_POSITION = 0.02;
-const SOLAR_PRESENTATION_TILT_DEG = 45;
-const SOLAR_PRESENTATION_YAW_DEG = 0;
+// Keep the AR presentation angle aligned with the calibrated mobile Hiro-marker baseline.
+const SOLAR_PRESENTATION_TILT_DEG = -42;
+const SOLAR_PRESENTATION_YAW_DEG = -8;
 const SOLAR_PRESENTATION_ROTATION = `${SOLAR_PRESENTATION_TILT_DEG} ${SOLAR_PRESENTATION_YAW_DEG} 0`;
 const AR_CAMERA_SOURCE_WIDTH = 640;
 const AR_CAMERA_SOURCE_HEIGHT = 480;
