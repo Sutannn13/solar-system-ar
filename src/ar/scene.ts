@@ -9,6 +9,8 @@ const SOLAR_PRESENTATION_Y_POSITION = 0.02;
 const SOLAR_PRESENTATION_TILT_DEG = -42;
 const SOLAR_PRESENTATION_YAW_DEG = -8;
 const SOLAR_PRESENTATION_ROTATION = `${SOLAR_PRESENTATION_TILT_DEG} ${SOLAR_PRESENTATION_YAW_DEG} 0`;
+// The GLB's native orbit plane must be rolled first so the solar system reads horizontally on portrait phones.
+const SOLAR_SYSTEM_NATIVE_ROTATION = "0 0 90";
 const AR_CAMERA_SOURCE_WIDTH = 640;
 const AR_CAMERA_SOURCE_HEIGHT = 480;
 
@@ -92,7 +94,7 @@ export function createArSceneMarkup(
           continuous-sun-spin
           visible="false"
           position="0 0 0"
-          rotation="0 0 0"
+          rotation="${SOLAR_SYSTEM_NATIVE_ROTATION}"
           scale="${solarScaleValue}"
         ></a-entity>
 
