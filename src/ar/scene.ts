@@ -91,7 +91,7 @@ export function createArSceneMarkup(
           continuous-sun-spin
           visible="false"
           position="0 0 0"
-          rotation="0 0 90"
+          rotation="0 0 0"
           scale="${solarScaleValue}"
         ></a-entity>
 
