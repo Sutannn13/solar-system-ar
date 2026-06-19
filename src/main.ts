@@ -1564,9 +1564,18 @@ function setSolarOverviewVisible(isVisible: boolean): void {
     }
     
     // Workaround for A-Frame animation-mixer getting stuck after being hidden
-    if (shouldShowModel && typeof (solarSystemEl as any).play === 'function') {
+    if (shouldShowModel) {
       try {
-        (solarSystemEl as any).play();
+        const glbWrapperEl = solarSystemEl.querySelector<HTMLElement>("#glbWrapper");
+        const mixer = (glbWrapperEl as any)?.components?.['animation-mixer'];
+        if (mixer && typeof mixer.playAction === 'function') {
+          if (typeof mixer.stopAction === 'function') {
+            mixer.stopAction();
+          }
+          mixer.playAction();
+        } else if (typeof (solarSystemEl as any).play === 'function') {
+          (solarSystemEl as any).play();
+        }
       } catch {
         // ignore errors
       }
@@ -1635,6 +1644,11 @@ function bindHitZoneEvents(): void {
 
   const handler = (event: Event) => {
     if (!isMarkerDetected || currentPlanet || isTransitioning) {
+      return;
+    }
+
+    // Abaikan jika user ternyata melakukan drag/swipe untuk merotasi tata surya
+    if ((window as any).__lastSolarDragDistance > 15) {
       return;
     }
 
